@@ -4,43 +4,19 @@ import routes from './routes'
 import cors from '@fastify/cors'
 import swagger from '@fastify/swagger'
 import swaggerUi from '@fastify/swagger-ui'
+import swaggerConf from './config/swagger.config'
+import corsOptions from './config/cors.config'
 
 const port = parseInt(process.env.PORT || '3000')
 
 export const app = fastify()
 
 app.register(routes)
-app.register(cors, {})
-app.register(swagger, {
-  openapi: {
-    openapi: '3.0.0',
-    info: {
-      title: 'Verbum',
-      description: 'Welcome to swagger documentation, the best way to manage your library.',
-      version: '1.0.0',
-    },
-    servers: [
-      {
-        url: 'http://localhost:3000',
-        description: 'Development server',
-      },
-    ],
-    tags: [
-    ],
-    components: {
-      securitySchemes: {
-        apiKey: {
-          type: 'apiKey',
-          name: 'apiKey',
-          in: 'header',
-        },
-      },
-    },
-  },
-})
+app.register(cors, corsOptions)
+app.register(swagger, swaggerConf)
 
 app.register(swaggerUi, {
-  routePrefix: '/docs', // Caminho onde a documentação estará disponível
+  routePrefix: '/docs',
   uiConfig: {
     docExpansion: 'full',
     deepLinking: false,
