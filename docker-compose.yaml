@@ -1,0 +1,56 @@
+services:
+  api:
+    build: .
+    command: npm run dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis
+    networks:
+      - private_network
+      - public_network
+
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - ./volumes/db:/var/lib/postgresql
+    environment:
+      POSTGRES_PASSWORD: root
+      POSTGRES_USER: root
+      POSTGRES_DB: library
+    ports:
+      - 5432:5432
+    networks:
+      - private_network
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080
+    depends_on:
+      - db
+    networks:
+      - public_network
+      - private_network
+
+  redis:
+    image: redis
+    command: redis-server --appendonly yes --save 7200 1
+    volumes:
+      - ./volumes/redis:/data
+    ports:
+      - 6379:6379
+    networks:
+      - private_network
+
+networks:
+  public_network:
+    driver: bridge
+  private_network:
+    driver: bridge
+

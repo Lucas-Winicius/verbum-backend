@@ -7,7 +7,10 @@ class Cache {
 
   constructor() {
     this.client = new Redis({
-      host: process.env.REDIS_URL,
+      host: process.env.REDIS_HOST,
+      port: parseInt(process.env.REDIS_PORT || '6379'),
+      db: parseInt(process.env.REDIS_DB || '0'),
+      maxRetriesPerRequest: 5,
       retryStrategy: function (times) {
         const delay = Math.min(times * 2, 2000)
         return delay
