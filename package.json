@@ -8,7 +8,10 @@
     "dev": "tsx watch src/server.ts",
     "lint": "eslint . --ext .ts",
     "test": "vitest run",
-    "test:watch": "vitest dev"
+    "test:watch": "vitest dev",
+    "migrate:dev": "drizzle-kit migrate",
+    "migrate": "drizzle-kit push",
+    "generate": "drizzle-kit generate"
   },
   "keywords": [],
   "author": "",
@@ -19,12 +22,19 @@
     "@fastify/swagger": "^9.4.1",
     "@fastify/swagger-ui": "^5.2.1",
     "dotenv": "^16.4.7",
+    "drizzle-orm": "^0.39.3",
+    "drizzle-zod": "^0.7.0",
     "fastify": "^5.2.1",
-    "ioredis": "^5.5.0"
+    "ioredis": "^5.5.0",
+    "pg": "^8.13.3",
+    "postgres": "^3.4.5",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
     "@types/node": "^22.10.5",
+    "@types/pg": "^8.11.11",
+    "drizzle-kit": "^0.30.4",
     "eslint": "^9.18.0",
     "globals": "^15.14.0",
     "prettier": "^3.4.2",
