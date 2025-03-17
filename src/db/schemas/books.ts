@@ -1,14 +1,14 @@
 import {
+  char,
   integer,
   pgTable,
-  serial,
   text,
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core'
 
 export const books = pgTable('books', {
-  id: serial('id').primaryKey().notNull(),
+  id: char('id', { length: 12 }).primaryKey().notNull(),
 
   barcode: varchar('barcode').notNull().unique(),
 

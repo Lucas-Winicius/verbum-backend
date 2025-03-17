@@ -1,11 +1,12 @@
 import {
+  char,
   pgEnum,
   pgTable,
-  serial,
   text,
   timestamp,
   varchar,
 } from 'drizzle-orm/pg-core'
+import { libraries } from './libraries'
 
 export const status = pgEnum('staus', [
   'scheduled', // Agendado
@@ -15,7 +16,12 @@ export const status = pgEnum('staus', [
 ])
 
 export const events = pgTable('events', {
-  id: serial('id').primaryKey().notNull(),
+  id: char('id', { length: 12 }).primaryKey().notNull(),
+
+  libraryeId: char('librarye_id', { length: 12 }).references(
+    () => libraries.id,
+    { onDelete: 'cascade' }
+  ),
 
   title: varchar('title').notNull(),
 

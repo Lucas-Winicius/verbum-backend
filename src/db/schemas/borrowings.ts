@@ -1,7 +1,21 @@
-import { boolean, date, pgTable, serial, text, timestamp, varchar } from 'drizzle-orm/pg-core'
+import {
+  boolean,
+  char,
+  date,
+  pgTable,
+  text,
+  timestamp,
+  varchar,
+} from 'drizzle-orm/pg-core'
+import { books } from './books'
+import { libraries } from './libraries'
 
 export const borrowings = pgTable('borrowings', {
-  id: serial('id').primaryKey().notNull(),
+  id: char('id', { length: 12 }).primaryKey().notNull(),
+
+  bookId: char('book_id', { length: 12 }).references(() => books.id),
+
+  libraryId: char('library_id', { length: 12 }).references(() => libraries.id),
 
   collectedAt: date('created_at').notNull(),
 

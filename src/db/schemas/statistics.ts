@@ -1,13 +1,12 @@
-import {
-  integer,
-  pgTable,
-  serial,
-  timestamp,
-  varchar,
-} from 'drizzle-orm/pg-core'
+import { char, integer, pgTable, timestamp, varchar } from 'drizzle-orm/pg-core'
+import { libraries } from './libraries'
 
 export const statistics = pgTable('statistics', {
-  id: serial('id').primaryKey().notNull(),
+  id: char('id', { length: 12 }).primaryKey().notNull(),
+
+  libraryId: integer('library_id').references(() => libraries.id, {
+    onDelete: 'cascade',
+  }),
 
   monthYear: varchar('month_year', { length: 7 }),
 
