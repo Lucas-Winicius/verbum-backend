@@ -15,7 +15,9 @@ export const borrowings = pgTable('borrowings', {
 
   bookId: char('book_id', { length: 12 }).references(() => books.id),
 
-  libraryId: char('library_id', { length: 12 }).references(() => libraries.id),
+  libraryId: char('library_id', { length: 12 }).references(() => libraries.id, {
+    onDelete: 'cascade',
+  }),
 
   collectedAt: date('created_at').notNull(),
 

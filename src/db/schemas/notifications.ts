@@ -1,4 +1,4 @@
-import { char, integer, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core'
+import { char, pgTable, text, timestamp, varchar } from 'drizzle-orm/pg-core'
 import { libraries } from './libraries'
 
 export const notifications = pgTable('notifications', {
@@ -12,7 +12,7 @@ export const notifications = pgTable('notifications', {
 
   createdAt: timestamp('created_at').defaultNow(),
 
-  libraryId: integer('library_id').references(() => libraries.id, {
+  libraryId: char('library_id', { length: 12 }).references(() => libraries.id, {
     onDelete: 'cascade',
   }),
 

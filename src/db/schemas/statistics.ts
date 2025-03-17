@@ -4,7 +4,7 @@ import { libraries } from './libraries'
 export const statistics = pgTable('statistics', {
   id: char('id', { length: 12 }).primaryKey().notNull(),
 
-  libraryId: integer('library_id').references(() => libraries.id, {
+  libraryId: char('library_id', { length: 12 }).references(() => libraries.id, {
     onDelete: 'cascade',
   }),
 

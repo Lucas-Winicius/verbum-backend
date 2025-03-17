@@ -23,7 +23,7 @@ export const libraries = pgTable('libraries', {
 
   owner: char('owner').references(() => users.id, { onDelete: 'set null' }),
 
-  location: varchar('location').notNull(),
+  location: varchar('location'),
 
   createdAt: timestamp('created_at').defaultNow(),
 
