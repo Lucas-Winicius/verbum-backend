@@ -1,6 +1,6 @@
-import { app } from '../server';
-import HomeRoutes from './home';
+import { app } from '../server'
+import UserRoutes from './home'
 
 export default async function routes() {
-    app.register(HomeRoutes)
+  app.register(UserRoutes)
 }

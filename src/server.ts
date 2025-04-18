@@ -6,7 +6,6 @@ import swagger from '@fastify/swagger'
 import swaggerUi from '@fastify/swagger-ui'
 import swaggerConf from './config/swagger.config'
 import corsOptions from './config/cors.config'
-import cache from './db/cache'
 
 const port = parseInt(process.env.PORT || '3000')
 
