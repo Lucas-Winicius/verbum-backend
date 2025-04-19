@@ -12,7 +12,3 @@ export const title = (text: string) => {
     ...rest,
   ].join(' ')
 }
-
-console.log(title('Hello, Wold'))
-console.log(title('hello, Wold'))
-console.log(title('HELLO, WOLRD'))
