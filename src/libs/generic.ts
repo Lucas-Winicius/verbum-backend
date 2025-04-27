@@ -12,3 +12,15 @@ export const title = (text: string) => {
     ...rest,
   ].join(' ')
 }
+
+export const normalize = (value: string) =>
+  value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/ç/g, 'c')
+    .replace(/ñ/g, 'n')
+    .toLowerCase()
+    .replace(/\s+/g, '-')
+    .replace(/[^a-z0-9_-]/g, '')
+    .replace(/[-_]+/g, '-')
+    .replace(/^-+|-+$/g, '')
