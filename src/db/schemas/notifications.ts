@@ -30,10 +30,11 @@ export const insertNotificationsSchema = createInsertSchema(notifications, {
 
   title: z
     .string()
+    .trim()
     .min(5)
     .transform((notTitle) => title(notTitle)),
 
-  content: z.string().min(10),
+  content: z.string().trim().min(10),
 
   hideAt: z.date(),
 

@@ -4,6 +4,7 @@ import { z } from 'zod'
 import createId from '../../libs/idGen'
 import { capitalize } from '../../libs/generic'
 import hash from '../../libs/hash'
+import { normalize } from 'path'
 
 export const users = pgTable('users', {
   id: char('id', { length: 12 }).primaryKey().notNull(),
@@ -31,20 +32,14 @@ export const insertUserSchema = createInsertSchema(users, {
   name: z
     .string()
     .trim()
+    .min(3)
     .transform((name) => capitalize(name)),
 
-  username: z.string().trim().toLowerCase().nonempty(),
+  username: z.string().min(5).trim().toLowerCase().transform(normalize),
 
   email: z.string().trim().toLowerCase().email(),
 
   about: z.string().trim(),
 
-  password: z
-    .string()
-    .nonempty()
-    .trim()
-    .transform(async (pass) => {
-      const myhash = await hash(pass)
-      return myhash.hash
-    }),
+  password: z.string().nonempty().trim().transform(hash),
 })
