@@ -7,6 +7,10 @@ import {
   varchar,
 } from 'drizzle-orm/pg-core'
 import { libraries } from './libraries'
+import { createInsertSchema } from 'drizzle-zod'
+import { z } from 'zod'
+import createId from '../../libs/idGen'
+import { title } from '../../libs/generic'
 
 export const status = pgEnum('staus', [
   'scheduled', // Agendado
@@ -40,4 +44,20 @@ export const events = pgTable('events', {
   updatedAt: timestamp('updated_at')
     .$onUpdate(() => new Date())
     .defaultNow(),
+})
+
+export const insertEventsSchema = createInsertSchema(events, {
+  id: z.string().transform(createId),
+
+  libraryeId: z.string().length(12),
+
+  title: z.string().max(255).transform(title),
+
+  description: z.string(),
+
+  eventDate: z.date(),
+
+  status: z.enum(status.enumValues).default('scheduled'),
+
+  link: z.string().url().optional().or(z.literal('')),
 })
